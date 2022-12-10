@@ -13,6 +13,15 @@
     - [2.1.6. Models](#216-models)
     - [2.1.7. Utils](#217-utils)
 - [3. Backend API](#3-backend-api)
+  - [3.1. Regions](#31-regions)
+    - [3.1.1. Get all regions](#311-get-all-regions)
+  - [3.2. Areas](#32-areas)
+    - [3.2.1. Get all areas](#321-get-all-areas)
+    - [3.2.2. Get all areas in a region](#322-get-all-areas-in-a-region)
+  - [3.3. Places](#33-places)
+    - [3.3.1. Get place by ID](#331-get-place-by-id)
+    - [3.3.2. Get all places in an area](#332-get-all-places-in-an-area)
+  - [3.4. Place of the day](#34-place-of-the-day)
 - [4. Database](#4-database)
 
 ## 1. Overall architecture
@@ -125,5 +134,198 @@ The package [`com.niceplaces.niceplaces.utils`](https://github.com/niceplaces/an
 - [TextUtils](https://github.com/niceplaces/android-app/blob/main/app/src/main/java/com/niceplaces/niceplaces/utils/TextUtils.kt)
 
 ## 3. Backend API
+
+### 3.1. Regions
+
+#### 3.1.1. Get all regions
+
+HTTP request:
+
+[`GET /data/v3/release/regions`](https://www.niceplaces.it/data/v3/release/regions)
+
+JSON response:
+
+```
+[
+  {
+    "id": string,
+    "id_string": string,
+    "id_string_en": string,
+    "name": string,
+    "name_en": string,
+    "count": string
+  },
+  ...
+]
+```
+
+### 3.2. Areas
+
+#### 3.2.1. Get all areas
+
+HTTP request:
+
+[`GET /data/v3/release/areas`](https://www.niceplaces.it/data/v3/release/areas)
+
+JSON response:
+
+```
+[
+  {
+    "id": string,
+    "id_string": string,
+    "name": string,
+    "name_en": string,
+    "image": string,
+    "count": string
+  },
+  ...
+]
+```
+
+#### 3.2.2. Get all areas in a region
+
+HTTP request:
+
+[`GET /data/v3/release/regions/ + id_region`](https://www.niceplaces.it/data/v3/release/regions/1)
+
+JSON response:
+
+```
+[
+  {
+    "id": string,
+    "id_string": string,
+    "id_string_en": string,
+    "name": string,
+    "name_en": string,
+    "image": string,
+    "count": string
+  },
+  ...
+]
+```
+
+### 3.3. Places
+
+#### 3.3.1. Get place by ID
+
+HTTP request:
+
+[`GET /data/v3/release/places/` + id_place](https://www.niceplaces.it/data/v3/release/places/1)
+
+JSON response:
+
+```
+{
+  "id": string,
+  "id_string": string,
+  "id_string_en": string,
+  "id_area": string,
+  "id_area_en": string,
+  "id_region": string,
+  "id_region_en": string,
+  "name": string,
+  "name_en": string,
+  "area": string,
+  "area_en": string,
+  "region": string,
+  "region_en": string,
+  "description": string,
+  "description_en": string,
+  "desc_sources": string,
+  "author": string,
+  "latitude": string,
+  "longitude": string,
+  "image": string,
+  "img_credits": string,
+  "wiki_url": string,
+  "wiki_url_en": string,
+  "facebook": string,
+  "instagram": string,
+  "events": [
+    {
+      "id": string,
+      "date": string,
+      "description": string
+    },
+    ...
+  ]
+}
+```
+
+#### 3.3.2. Get all places in an area
+
+HTTP request:
+
+[`GET /data/v3/release/areas/ + id_area`](https://www.niceplaces.it/data/v3/release/areas/1)
+
+JSON response:
+
+```
+[
+  {
+    "id": string,
+    "name": string,
+    "name_en": string,
+    "image": string,
+    "has_description": boolean,
+    "has_description_en": boolean,
+    "author": string,
+    "has_image": boolean,
+    "wiki_url": string,
+    "wiki_url_en": string
+  },
+  ...
+]
+```
+
+### 3.4. Place of the day
+
+HTTP request:
+
+[`GET /data/v3/release/placeoftheday`](https://www.niceplaces.it/data/v3/release/placeoftheday) (for Italian version)
+
+[`GET /data/v3/release/placeoftheday-en`](https://www.niceplaces.it/data/v3/release/placeoftheday-en) (for English version)
+
+JSON response:
+
+```
+{
+  "id": string,
+  "id_string": string,
+  "id_string_en": string,
+  "id_area": string,
+  "id_area_en": string,
+  "id_region": string,
+  "id_region_en": string,
+  "name": string,
+  "name_en": string,
+  "area": string,
+  "area_en": string,
+  "region": string,
+  "region_en": string,
+  "description": string,
+  "description_en": string,
+  "desc_sources": string,
+  "author": string,
+  "latitude": string,
+  "longitude": string,
+  "image": string,
+  "img_credits": string,
+  "wiki_url": string,
+  "wiki_url_en": string,
+  "facebook": string,
+  "instagram": string,
+  "events": [
+    {
+      "id": string,
+      "date": string,
+      "description": string
+    },
+    ...
+  ]
+}
+```
 
 ## 4. Database
